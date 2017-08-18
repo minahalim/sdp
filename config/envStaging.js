@@ -8,6 +8,6 @@ module.exports = {
     SERVER_URL: "http://localhost:8080", // Staging server URL
 
     googleApiKey: "AIzaSyCc7lkQ8knwThTvGHttJIyByKL4sjvbuWI", // If the key is not the same for the Staging
-    mongooseDBURL: "mongodb://mongo:27017/", // MongoDB url for the staging
+    mongooseDBURL: "mongodb://localhost:27017/", // MongoDB url for the staging
     databaseName: "sdp"	// Database name for the staging
 };
