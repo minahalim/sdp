@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=LOCAL node ./bin/www",
+    "start": "node ./bin/www",
     "jshint": "jshint .",
     "jscs": "jscs .",
     "lint": "jshint .",
@@ -19,7 +19,7 @@
     "jshint"
   ],
   "dependencies": {
-    "@google/maps": "latest",
+    "@google/maps": "https://github.com/googlemaps/google-maps-services-js",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "dotenv": "^2.0.0",

@@ -27,11 +27,16 @@ var lodash = require("lodash"),
     },
 
     environmentSpecific = {
-        LOCAL: require("./envLocal")
+        LOCAL: require("./envLocal"),
+        DEVELOPMENT: require("./envDevelopment"),
+        QA: require("./envQa"),
+        STAGING: require("./envStaging"),
+        PRODUCTION: require("./envProduction")
     };
 
 console.log("SDP NODE_ENV: ", process.env.NODE_ENV);
 
+// Pick the related config based on the NODE_ENV
 if (typeof environmentSpecific[process.env.NODE_ENV] !== "undefined") {
     module.exports = lodash.merge(common, environmentSpecific[process.env.NODE_ENV]);
 } else {

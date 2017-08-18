@@ -25,6 +25,12 @@ module.exports = function(config) {
         });
     };
 
+    function routesNotFound(result) {
+        return _.filter(result.rows[0].elements, function(row) {
+            return row.status == "ZERO_RESULTS";
+        }).length;
+    }
+
     function calculateTotalDrivingPath(route, origins, destinations) {
         var sortedRoute = [],
             totalDistance = 0,
@@ -71,6 +77,7 @@ module.exports = function(config) {
 
     return {
         getShortestDrivingPath: getShortestDrivingPath,
-        calculateTotalDrivingPath: calculateTotalDrivingPath
+        calculateTotalDrivingPath: calculateTotalDrivingPath,
+        routesNotFound: routesNotFound
     };
 };

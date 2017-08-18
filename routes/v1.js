@@ -77,6 +77,7 @@ module.exports = function(config) {
 
     v1.routeWithToken = function(req, res, next) {
         var googleResponse,
+            routesNotFound,
             result,
             errorResult;
 
@@ -112,6 +113,12 @@ module.exports = function(config) {
                     data.destinations
                 ).then(function(googleResponse) {
                     googleResponse = JSON.parse(googleResponse);
+                    routesNotFound = googleMapsModule.routesNotFound(googleResponse)
+                    if (routesNotFound > 0) {
+                        v1.handleError(errorMessage.API.ROUTES_NOT_FOUND + routesNotFound, req);
+                        return;
+                    }
+
                     if (googleResponse.status === "OK") {
                         // After getting the paths from google do the real calculations for the data returned
                         result = googleMapsModule.calculateTotalDrivingPath(googleResponse, data.origins, data.destinations);
@@ -154,7 +161,7 @@ module.exports = function(config) {
 
         errorResult = {
             status: "failure",
-            error: error.json["error_message"]
+            error: error || error.json["error_message"]
         };
 
         // update the shortestDistanceModel document with the data and the status

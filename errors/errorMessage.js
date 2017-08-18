@@ -6,7 +6,8 @@ var lodash = require("lodash"),
             MISSING_REQ_BODY: "Missing Request Body",
             MISSING_ORIGN: "Missing Origin",
             MISSING_DESTINATIONS: "Missing Destinations",
-            MISSINT_TOKEN: "Missing Token"
+            MISSINT_TOKEN: "Missing Token",
+            ROUTES_NOT_FOUND: "Some routes are not found: "
         },
         DB: {
             CANNOT_CONNECT: "Cannot connect to the database",
