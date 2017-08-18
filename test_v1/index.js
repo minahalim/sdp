@@ -8,7 +8,6 @@ var sinon = require("sinon"),
     config = require("../config"),
     errorMessage = require("../errors/errorMessage"),
     proxyquire = require("proxyquire"),
-    sessionMethods = require("../utils/sessionMethods"),
     assert = chai.assert;
 
 sinonStubPromise(sinon);
