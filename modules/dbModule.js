@@ -9,7 +9,7 @@ module.exports = function(config) {
 
 
     function connect() {
-        var connectionString = "mongodb://localhost:27017/" + config.databaseName,
+        var connectionString = "mongodb://mongodb-1-f4vkn:27017/" + config.databaseName,
             connect,
             db;
 
