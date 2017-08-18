@@ -9,28 +9,31 @@ module.exports = function(config) {
 
 
     function connect() {
-        // default to a 'localhost' configuration:
-        var connectionString = 'mongodb://127.0.0.1:27017/' + config.databaseName;
+        var connectionString = "127.0.0.1:27017/" + config.databaseName,
+            connect,
+            db;
+
         // if OPENSHIFT env variables are present, use the available connection info:
-        if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-          connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-          process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-          process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-          process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-          process.env.OPENSHIFT_APP_NAME;
+        if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+            connectionString = process.env.OPENSHIFT_MONGODB_DB_URL +
+            process.env.OPENSHIFT_APP_NAME;
         }
 
-        mongoose.Promise = global.Promise;
-        mongoose.connect(connectionString, {
-            useMongoClient: true
-        }, function(error) {
-            if (!error) {
-                console.log("Database connected!");
-            }
-        }).catch(function(error) {
-            console.log(new Error(errorMessage.DB.CANNOT_CONNECT));
-            process.exit(1);
+        // Connect to mongodb
+        connect = function() {
+            mongoose.connect(connectionString);
+        };
+
+        connect();
+
+        db = mongoose.connection;
+
+        db.on("error", function(error) {
+            console.log("Error loading the db - " + error);
         });
+
+        db.on("disconnected", connect);
+
         return buildSchema(mongoose);
     };
 
