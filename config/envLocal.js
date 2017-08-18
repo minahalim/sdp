@@ -9,5 +9,5 @@ module.exports = {
 
     googleApiKey: "AIzaSyCc7lkQ8knwThTvGHttJIyByKL4sjvbuWI",
     mongooseDBURL: "mongodb://localhost:27017/",
-    databaseName: process.env.OPENSHIFT_APP_NAME
+    databaseName: "sdp"
 };
