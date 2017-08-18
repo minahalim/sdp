@@ -8,6 +8,6 @@ module.exports = {
     SERVER_URL: "http://localhost:8080", // Production server URL
 
     googleApiKey: "AIzaSyCc7lkQ8knwThTvGHttJIyByKL4sjvbuWI", // If the key is not the same for the Production
-    mongooseDBURL: process.env.OPENSHIFT_MONGO_DB_URL, // MongoDB url for the Production
-    databaseName: process.env.OPENSHIFT_APP_NAME	// Database name for the Production
+    mongooseDBURL: "mongodb://dl3SxSxOibUxhi2T:userBEM@127.0.0.1:27017/", // MongoDB url for the Production
+    databaseName: "sdp"	// Database name for the Production
 };
