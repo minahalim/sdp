@@ -8,6 +8,6 @@ module.exports = {
     SERVER_URL: "http://localhost:8080",
 
     googleApiKey: "AIzaSyCc7lkQ8knwThTvGHttJIyByKL4sjvbuWI",
-    mongooseDBURL: "mongodb://localhost:27017/",
+    mongooseDBURL: "mongodb://localhost:27017/"
     databaseName: "sdp"
 };

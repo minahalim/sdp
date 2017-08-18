@@ -8,6 +8,6 @@ module.exports = {
     SERVER_URL: "http://localhost:8080", // Development server URL
 
     googleApiKey: "AIzaSyCc7lkQ8knwThTvGHttJIyByKL4sjvbuWI", // If the key is not the same for the Development
-    mongooseDBURL: "mongodb://localhost:27017/", // MongoDB url for the Development
+    mongooseDBURL: "mongodb://lalamove:l@l@m0v3@localhost:27017/", // MongoDB url for the Development
     databaseName: "sdp"	// Database name for the Development
 };
