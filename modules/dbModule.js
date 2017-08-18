@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     function connect() {
         // default to a 'localhost' configuration:
-        var connectionString = '127.0.0.1:27017/' + config.databaseName;
+        var connectionString = 'mongodb://127.0.0.1:27017/' + config.databaseName;
         // if OPENSHIFT env variables are present, use the available connection info:
         if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
           connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
