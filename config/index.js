@@ -31,7 +31,8 @@ var lodash = require("lodash"),
         DEVELOPMENT: require("./envDevelopment"),
         QA: require("./envQa"),
         STAGING: require("./envStaging"),
-        PRODUCTION: require("./envProduction")
+        PRODUCTION: require("./envProduction"),
+        DOCKER: require("./envDocker")
     };
 
 console.log("SDP NODE_ENV: ", process.env.NODE_ENV);

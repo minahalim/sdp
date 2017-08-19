@@ -11,7 +11,7 @@
     "validate": "npm ls"
   },
   "dependencies": {
-    "@google/maps": "git+https://github.com/googlemaps/google-maps-services-js.git",
+    "@google/maps": "latest",
     "body-parser": "latest",
     "cookie-parser": "latest",
     "dotenv": "latest",

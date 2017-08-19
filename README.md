@@ -11,6 +11,7 @@ These instructions will get you an instance of the project up and running on you
 This app is built on top of Node.Js and MongoDB so make sure you have them installed in your system.
 
 Node.js: https://nodejs.org/en/download/
+
 MongoDB: https://docs.mongodb.com/getting-started/shell/installation/
 
 Make sure MongoDB is running.
@@ -53,7 +54,16 @@ DEVELOPMENT
 QA
 STAGING
 PRODUCTION
+DOCKER
 
+### Docker
+
+You can build and run docker image for the project using the following command:
+
+```
+docker build .
+docker run <image_id>
+```
 
 ### For the Database:
 
@@ -81,7 +91,9 @@ npm test
 
 I have hosted a demo for this App in openshift, you can also play around with it in the postman:
 
+```
 http://nodejs-mongo-persistent-sdp.a3c1.starter-us-west-1.openshiftapps.com/
+```
 
 I have done auto deployment setup from github to openshift, so that whenever I push a new code into the develop branch it will trigger a deployment to openshift immediately.
 
