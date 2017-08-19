@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "jshint": "jshint .",
-    "jscs": "jscs .",
-    "lint": "jshint .",
+    "jshint": "./node_modules/.bin/jshint .",
+    "jscs": "./node_modules/.bin/jscs .",
+    "lint": "./node_modules/.bin/jshint .",
     "validate": "npm ls"
   },
   "dependencies": {
@@ -21,6 +21,8 @@
     "guid": "latest",
     "helmet": "latest",
     "jes": "latest",
+    "jscs": "latest",
+    "jshint": "^2.9.5",
     "lodash": "latest",
     "moment": "latest",
     "mongodb": "latest",
