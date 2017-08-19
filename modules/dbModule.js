@@ -9,7 +9,7 @@ module.exports = function(config) {
 
 
     function connect() {
-        var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://userBEM:dl3SxSxOibUxhi2T@10.131.4.240:27017/" + config.databaseName,
+        var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://admin:Lnh8PsMUPuYulbUp@10.131.4.240:27017/" + config.databaseName,
             connect,
             db;
 
