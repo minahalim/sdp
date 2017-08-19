@@ -11,7 +11,7 @@ module.exports = {
 
     databaseHostName: "10.131.4.240",
     databaseHostPort: "27017",
-    databaseUsername: "admin",
-    databasePassword: "Lnh8PsMUPuYulbUp",
+    databaseUsername: "userBEM",
+    databasePassword: "dl3SxSxOibUxhi2T",
     databaseName: "sdp"
 };
