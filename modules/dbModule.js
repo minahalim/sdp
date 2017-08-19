@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     function connect() {
         var databaseHostName = config.databaseHostName,
-            databaseHostPort = config.dataabseHostPost,
+            databaseHostPort = config.databaseHostPort,
             databaseUsername = config.databaseUsername,
             databasePassword = config.databasePassword,
             databaseName = config.databaseName,
