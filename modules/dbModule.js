@@ -9,27 +9,38 @@ module.exports = function(config) {
 
 
     function connect() {
-        var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://admin:Lnh8PsMUPuYulbUp@10.131.4.240:27017/" + config.databaseName,
-            connect,
+        var databaseHostName = config.databaseHostName,
+            databaseHostPort = config.dataabseHostPost,
+            databaseUsername = config.databaseUsername,
+            databasePassword = databasePassword,
+            databaseName = config.databaseName,
+            connectionString,
             db;
 
-        // Connect to mongodb
-        connect = function() {
-            mongoose.connect(connectionString);
-        };
+        if (databaseUsername && databasePassword) {
+            connectionString = "mongodb://" + databaseUsername + ":" + databasePassword + "@" + databaseHostName + ":" + databaseHostPort + "/" + databaseName;
+        } else {
+            connectionString = "mongodb://" + databaseHostName + ":" + databaseHostPort + "/" + databaseName;
+        }
 
-        connect();
+        mongoose.connect(connectionString, {
+            useMongoClient: true
+        });
 
         db = mongoose.connection;
 
         db.on("error", function(error) {
-            console.log("Error loading the db - " + error);
+            console.log(new Error(error));
         });
 
-        return buildSchema(mongoose);
-    };
+        db.once("open", function() {
+            console.log("Finally we are connected to the database!");
+        });
 
-    function buildSchema(mongoose) {
+        return buildSchema();
+    }
+
+    function buildSchema() {
         var Schema = mongoose.Schema,
             routeSchema = new Schema({
                 origins: Array,
@@ -57,32 +68,32 @@ module.exports = function(config) {
     }
 
     function addEntry(DataModel, data) {
-        return new DataModel(data).save().then(function(data) {
-            return data;
+        return new DataModel(data).save().then(function(result) {
+            return result;
         }).catch(function(error) {
             return error;
         });
     }
 
     function deleteEntry(DataModel, id) {
-        return DataModel.findByIdAndRemove(id).then(function(data) {
-            return data;
+        return DataModel.findByIdAndRemove(id).then(function(result) {
+            return result;
         }).catch(function(error) {
             return error;
         });
     }
 
     function updateEntry(DataModel, id, data) {
-        return DataModel.update(id, {$set: data}).then(function(data) {
-            return data;
+        return DataModel.update(id, {$set: data}).then(function(result) {
+            return result;
         }).catch(function(error) {
             return error;
         });
     }
 
     function readEntry(DataModel, id) {
-        return DataModel.findOne(id).then(function(data) {
-            return data;
+        return DataModel.findOne(id).then(function(result) {
+            return result;
         }).catch(function(error) {
             return error;
         });

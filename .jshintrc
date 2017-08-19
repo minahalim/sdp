@@ -1,0 +1,33 @@
+{
+    "bitwise": false,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "noarg": true,
+    "onevar": false,
+    "nocomma": true,
+    "nonbsp": true,
+    "notypeof": true,
+    "shadow": "outer",
+    "undef": true,
+    "expr": true,
+    "unused": false,
+    "globals": {
+        "i18n": false,
+        "exports": false,
+        "define": false,
+        "require": false,
+        "amd": false,
+        "JSON": false
+    },
+    "strict": true,
+    "browser": true,
+    "node": true,
+    "esversion": 6,
+    "mocha": true,
+
+    // Deprecated rules, these are duplicated by rules in .jscsrc
+    "laxcomma": true,
+    "laxbreak": true,
+    "sub": true
+}

@@ -1,0 +1,16 @@
+{
+  "include": [
+    "**/*.js"
+  ],
+  "exclude": [
+    "config/*.js",
+    "config-njoi/*.js",
+    "test_ext/**/*.js",
+    "test_v1/**/*.js",
+    "test_all/**/*.js"
+  ],
+  "reporter": [
+    "lcovonly",
+    "text-summary"
+  ]
+}

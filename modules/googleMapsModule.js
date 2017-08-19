@@ -23,11 +23,11 @@ module.exports = function(config) {
                 }
             });
         });
-    };
+    }
 
     function routesNotFound(result) {
         return _.filter(result.rows[0].elements, function(row) {
-            return row.status == "ZERO_RESULTS";
+            return row.status === "ZERO_RESULTS";
         }).length;
     }
 
@@ -73,7 +73,7 @@ module.exports = function(config) {
                 "total_time": totalTime
             };
         }
-    };
+    }
 
     return {
         getShortestDrivingPath: getShortestDrivingPath,

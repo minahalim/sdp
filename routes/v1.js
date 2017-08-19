@@ -28,7 +28,7 @@ module.exports = function(config) {
         var router = express.Router();
 
         router.post(versionConfig.route, this.route);
-        router.get(versionConfig.routeWithToken, this.routeWithToken)
+        router.get(versionConfig.routeWithToken, this.routeWithToken);
 
         errorRouter(router);
 
@@ -69,16 +69,15 @@ module.exports = function(config) {
                 token: uniqueId,
                 status: "in progress",
                 routeDocumentId: routeDocumentId
-            }).then(function(data) {
+            }).then(function() {
                 res.send({"token": uniqueId});
             });
         });
     };
 
     v1.routeWithToken = function(req, res, next) {
-        var googleResponse,
-            routesNotFound,
-            result,
+        var routesNotFound,
+            calculatedPath,
             errorResult;
 
         if (!req.params.token) {
@@ -106,24 +105,24 @@ module.exports = function(config) {
             // get the route from the routeModel
             db.readEntry(RouteDataModel, {
                 _id: data.routeDocumentId
-            }).then(function(data) {
+            }).then(function(result) {
                 // get the calculations for the routes using Google Maps Matrix Api
                 googleMapsModule.getShortestDrivingPath(
-                    data.origins,
-                    data.destinations
+                    result.origins,
+                    result.destinations
                 ).then(function(googleResponse) {
                     googleResponse = JSON.parse(googleResponse);
-                    routesNotFound = googleMapsModule.routesNotFound(googleResponse)
+                    routesNotFound = googleMapsModule.routesNotFound(googleResponse);
                     if (routesNotFound > 0) {
                         v1.handleError(errorMessage.API.ROUTES_NOT_FOUND + routesNotFound, req);
                         return;
                     }
 
                     if (googleResponse.status === "OK") {
-                        // After getting the paths from google do the real calculations for the data returned
-                        result = googleMapsModule.calculateTotalDrivingPath(googleResponse, data.origins, data.destinations);
+                        // After getting the paths from google do the real calculations for the result returned
+                        calculatedPath = googleMapsModule.calculateTotalDrivingPath(googleResponse, result.origins, result.destinations);
 
-                        v1.handleSuccess(result, req);
+                        v1.handleSuccess(calculatedPath, req);
                         return;
                     }
 
@@ -154,7 +153,7 @@ module.exports = function(config) {
 
         // update the shortestDistanceModel document with the data and the status
         db.updateEntry(ShortestDistanceDataModel, {token: req.params.token}, finalResult);
-    }
+    };
 
     v1.handleError = function(error, req) {
         var errorResult;
@@ -166,7 +165,7 @@ module.exports = function(config) {
 
         // update the shortestDistanceModel document with the data and the status
         db.updateEntry(ShortestDistanceDataModel, {token: req.params.token}, errorResult);
-    }
+    };
 
     return v1;
 };

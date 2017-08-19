@@ -38,5 +38,9 @@
     "proxyquire": "^1.7.10",
     "sinon": "^1.17.5",
     "sinon-stub-promise": "^3.0.1"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "validate"
+  ]
 }
