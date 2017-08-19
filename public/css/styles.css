@@ -15,5 +15,7 @@
 }
 
 .centered span.red {
-	color: red;
+	background: -webkit-linear-gradient(#F16822, #FEA200);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
