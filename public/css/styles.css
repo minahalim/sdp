@@ -1,0 +1,19 @@
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centered img {
+	max-width: 100%;
+}
+
+.centered .content {
+	font-family: "Helvetica";
+	text-align: center;
+}
+
+.centered span.red {
+	color: red;
+}

@@ -10,12 +10,18 @@ function healthCheck(req, res, next) {
     });
 }
 
+function home(req, res, next) {
+    res.render("index.html");
+}
+
 module.exports = function(express, app) {
     var v1Router = v1(config).createRouter(express, app),
         error = errorApp(config);
 
     // Root
     app.get("/health", healthCheck);
+
+    app.get("/", home);
 
     app.use(config.VERSION.V1.path, v1Router);
 
