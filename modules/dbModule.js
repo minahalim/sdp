@@ -32,8 +32,6 @@ module.exports = function(config) {
             console.log("Error loading the db - " + error);
         });
 
-        db.on("disconnected", connect);
-
         return buildSchema(mongoose);
     };
 
