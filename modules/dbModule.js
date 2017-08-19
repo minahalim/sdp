@@ -12,7 +12,7 @@ module.exports = function(config) {
         var databaseHostName = config.databaseHostName,
             databaseHostPort = config.dataabseHostPost,
             databaseUsername = config.databaseUsername,
-            databasePassword = databasePassword,
+            databasePassword = config.databasePassword,
             databaseName = config.databaseName,
             connectionString,
             db;
