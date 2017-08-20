@@ -8,6 +8,7 @@
  */
 var app = require("../server"),
     http = require("http"),
+    helper = require("../utils/helper"),
     server = "",
     port = "",
     envStr = (process.env.NODE_ENV).trim().toUpperCase();
@@ -95,5 +96,5 @@ function onError(error) {
 function onListening() {
     var addr = server.address(),
         bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-    console.log("Listening on " + bind);
+    helper.logExceptOnTest("Listening on " + bind);
 }

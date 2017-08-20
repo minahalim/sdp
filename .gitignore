@@ -2,3 +2,7 @@ node_modules
 *.log
 logs
 data
+.nyc_output
+coverage
+coverage/Icov.info
+.DS_Store

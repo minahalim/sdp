@@ -26,6 +26,5 @@ module.exports = function(express, app) {
     app.use(config.VERSION.V1.path, v1Router);
 
     // Errors
-    app.use(error.doesNotExist);
     app.use(error.errorHandler);
 };

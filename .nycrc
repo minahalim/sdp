@@ -4,12 +4,10 @@
   ],
   "exclude": [
     "config/*.js",
-    "config-njoi/*.js",
-    "test_ext/**/*.js",
-    "test_v1/**/*.js",
-    "test_all/**/*.js"
+    "test"
   ],
   "reporter": [
+    "html",
     "lcovonly",
     "text-summary"
   ]

@@ -4,6 +4,7 @@ module.exports = function(config) {
 
     var mongoose = require("mongoose"),
         errorMessage = require("../errors/errorMessage"),
+        helper = require("../utils/helper"),
         RouteDataModel,
         ShortestDistanceDataModel;
 
@@ -23,6 +24,7 @@ module.exports = function(config) {
             connectionString = "mongodb://" + databaseHostName + ":" + databaseHostPort + "/" + databaseName;
         }
 
+        mongoose.Promise = global.Promise;
         mongoose.connect(connectionString, {
             useMongoClient: true
         });
@@ -30,11 +32,11 @@ module.exports = function(config) {
         db = mongoose.connection;
 
         db.on("error", function(error) {
-            console.log(new Error(error));
+            helper.logExceptOnTest(new Error(error));
         });
 
         db.once("open", function() {
-            console.log("Finally we are connected to the database!");
+            helper.logExceptOnTest("Connected to the Database");
         });
 
         return buildSchema();

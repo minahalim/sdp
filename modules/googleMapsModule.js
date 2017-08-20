@@ -6,22 +6,19 @@ module.exports = function(config) {
         googleMaps = require("@google/maps");
 
     function getShortestDrivingPath(origin, destinations) {
-        return new Promise(function(resolve, reject) {
-            var googleMapsClient = googleMaps.createClient({
-                key: config.googleApiKey
-            });
+        var googleMapsClient = googleMaps.createClient({
+            key: config.googleApiKey,
+            Promise: Promise
+        });
 
-            googleMapsClient.distanceMatrix({
-                origins: origin,
-                destinations: destinations,
-                mode: "driving"
-            }, function(err, response) {
-                if (!err) {
-                    resolve(JSON.stringify(response.json));
-                } else {
-                    return reject(err);
-                }
-            });
+        return googleMapsClient.distanceMatrix({
+            origins: origin,
+            destinations: destinations,
+            mode: "driving"
+        }).asPromise().then(function(response) {
+            return response.json;
+        }).catch(function(error) {
+            return error;
         });
     }
 

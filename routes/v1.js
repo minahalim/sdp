@@ -4,7 +4,6 @@ module.exports = function(config) {
 
     var _ = require("lodash"),
         guid = require("guid"),
-        check = require("../utils/check"),
         errorRouter = require("../errors/errorRouter"),
         errorMessage = require("../errors/errorMessage"),
         googleMapsModule = require("../modules/googleMapsModule")(config),
@@ -43,12 +42,8 @@ module.exports = function(config) {
             destinations,
             routeDocumentId;
 
-        if (req.body.length === 0) {
+        if (req.body.length === 0 || req.body.length === undefined) {
             return next(new Error(errorMessage.API.MISSING_REQ_BODY));
-        }
-
-        if (req.body.length < 1) {
-            return next(new Error(errorMessage.API.MISSING_ORIGN));
         }
 
         if (req.body.length < 2) {
@@ -67,7 +62,7 @@ module.exports = function(config) {
 
             db.addEntry(ShortestDistanceDataModel, {
                 token: uniqueId,
-                status: "in progress",
+                status: "not started",
                 routeDocumentId: routeDocumentId
             }).then(function() {
                 res.send({"token": uniqueId});
@@ -96,7 +91,7 @@ module.exports = function(config) {
             // maybe the user is revisiting so no need to recalculate
             // or the api already done calculating and updated the status
             // or the api returned an error already
-            if (data.status && (data.result || data.error))  {
+            if (data.status !== "not started")  {
                 // Success or Failuer Status
                 return res.send(_.merge({}, {"status": data.status}, data.result || {"error": data.error}));
             }
@@ -106,15 +101,22 @@ module.exports = function(config) {
             db.readEntry(RouteDataModel, {
                 _id: data.routeDocumentId
             }).then(function(result) {
+                // update the shortestDistanceModel document with the data and the status
+
                 // get the calculations for the routes using Google Maps Matrix Api
-                googleMapsModule.getShortestDrivingPath(
+                return googleMapsModule.getShortestDrivingPath(
                     result.origins,
                     result.destinations
                 ).then(function(googleResponse) {
-                    googleResponse = JSON.parse(googleResponse);
+                    // Check if routes not found ? return failure
                     routesNotFound = googleMapsModule.routesNotFound(googleResponse);
+
                     if (routesNotFound > 0) {
                         v1.handleError(errorMessage.API.ROUTES_NOT_FOUND + routesNotFound, req);
+                        res.send({
+                            status: "failure",
+                            error: errorMessage.API.ROUTES_NOT_FOUND + routesNotFound
+                        });
                         return;
                     }
 
@@ -123,20 +125,24 @@ module.exports = function(config) {
                         calculatedPath = googleMapsModule.calculateTotalDrivingPath(googleResponse, result.origins, result.destinations);
 
                         v1.handleSuccess(calculatedPath, req);
-                        return;
-                    }
 
-                    db.updateEntry(ShortestDistanceDataModel, {token: req.params.token}, {
-                        status: "failure",
-                        error: null
-                    });
+                        if (process.env.TEST) {
+                            res.send({status: "in progress"});
+                        }
+                    }
                 }).catch(function(error) {
                     v1.handleError(error, req);
                 });
-
-                // In progress Status
-                res.send({status: "in progress"});
             });
+
+            db.updateEntry(ShortestDistanceDataModel, {token: req.params.token}, {
+                status: "in progress"
+            });
+
+            if (!process.env.TEST) {
+                res.send({status: "in progress"});
+                return;
+            }
         }).catch(function(error) {
             res.send(error);
         });

@@ -8,10 +8,11 @@
     "jshint": "./node_modules/.bin/jshint .",
     "jscs": "./node_modules/.bin/jscs .",
     "lint": "./node_modules/.bin/jshint .",
+    "test": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test",
     "validate": "npm ls"
   },
   "dependencies": {
-    "@google/maps": "latest",
+    "@google/maps": "@google/maps",
     "body-parser": "latest",
     "cookie-parser": "latest",
     "dotenv": "latest",
@@ -46,6 +47,7 @@
   },
   "pre-commit": [
     "lint",
-    "validate"
+    "validate",
+    "test"
   ]
 }

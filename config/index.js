@@ -1,11 +1,12 @@
 "use strict";
 
 var lodash = require("lodash"),
+    helper = require("../utils/helper"),
 
     v1 = {
         path: "/v1",
         route: "/route",
-        routeWithToken: "/route/:token",
+        routeWithToken: "/route/:token?",
 
         log: "/log"
     },
@@ -35,7 +36,7 @@ var lodash = require("lodash"),
         DOCKER: require("./envDocker")
     };
 
-console.log("SDP NODE_ENV: ", process.env.NODE_ENV);
+helper.logExceptOnTest("SDP NODE_ENV: ", process.env.NODE_ENV);
 
 // Pick the related config based on the NODE_ENV
 if (typeof environmentSpecific[process.env.NODE_ENV] !== "undefined") {
