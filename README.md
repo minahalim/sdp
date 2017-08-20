@@ -62,7 +62,7 @@ You can build and run docker image for the project using the following command:
 
 ```
 docker-compose build
-docker-compose run
+docker-compose up
 ```
 
 ### For the Database:
@@ -84,8 +84,10 @@ You can find postman collection in the github `SDP.postman_collection` import it
 ### For running the tests:
 
 ```
-npm test
+npm run test
 ```
+
+This will create a coverage folder under the root folder of the app. you can look at the html report there.
 
 ## New Branches and code 
 
