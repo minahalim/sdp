@@ -61,8 +61,8 @@ DOCKER
 You can build and run docker image for the project using the following command:
 
 ```
-docker build .
-docker run <image_id>
+docker-compose build
+docker-compose run
 ```
 
 ### For the Database:
@@ -86,6 +86,21 @@ You can find postman collection in the github `SDP.postman_collection` import it
 ```
 npm test
 ```
+
+## New Branches and code 
+
+Please make sure you are branching from develop into your new branch
+
+after commiting please create a pull request to develop branch
+
+peer code reviews is a must
+
+run Jslint and Jscs with the following commands to make sure you are following the code convention
+
+```
+npm run jshin
+npm run jscs
+``
 
 ## Demo
 
